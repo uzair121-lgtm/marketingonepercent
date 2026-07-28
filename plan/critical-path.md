@@ -1,23 +1,38 @@
-# Critical path
+# Critical path — compressed (front-loaded to week 1)
 
-Dated actions with dependencies. The long pole is ad-account approval (Meta, days) gating the 24 Aug launch, and the attribution test (14 Aug) gating store submission.
+Directive 27 Jul: pull every controllable action into **this week (27 Jul–2 Aug)**. Only three items resist compression because they run on external clocks (Meta ad review, a build existing for the attribution test, Apple store review). Original plan dates shown in the last column.
 
-| Date | Action | Workstream | Depends on / note |
+## Week 1 — 27 Jul–2 Aug (pull-forward)
+
+| Do | Action | Workstream | Owner | Was |
+| --- | --- | --- | --- | --- |
+| **Today** | Submit ad account + payment method | Paid | F | 30 Jul |
+| **Today** | Bio link live; start IG posting (ramp 3×/week+) | Organic | M | 4 Aug |
+| This week | Gym conversations start warming | Free | M | 4 Aug |
+| This week | Free-channel shortlist sized; pick top 3–4 | Free | M | 8 Aug |
+| This week | One named human contact per chosen channel | Free | M | 11 Aug |
+| This week | Six creative variants produced (4:5 + 9:16, no faces) | Paid | M | 18 Aug |
+| This week | Draft store listing assets (ready to submit) | Store | F | — |
+| This week | Kick off Meta SDK integration into the build | Measurement | M+F | — |
+
+## Gated by external clocks — cannot land this week
+
+| Target | Action | Gated on | Note |
 | --- | --- | --- | --- |
-| **30 Jul** | Submit ad account + payment method | Paid | Starts Meta review clock early. Approval can take days. **Escalate if held past 5 Aug.** |
-| 4 Aug | Bio links live; IG posting starts 3×/week | Organic | Not weekly — 9 posts must be live before 24 Aug |
-| 4 Aug | Gym conversations start warming | Free | Every tester carries a source field from first contact |
-| 8 Aug | Shortlist + size candidate free channels | Free | Pick top 3–4 |
-| 11 Aug | One named human contact per chosen channel | Free | |
-| **14 Aug** | Attribution end-to-end test PASSES | Measurement | Meta SDK in build, events firing, SKAdNetwork configured, ATT prompt in place. **Nothing ships to store until this passes** — SDK must be in the submitted binary. **Escalate if it fails after 14 Aug.** |
-| ~14–17 Aug | Submit store build | Measurement→store (founder) | Only after attribution passes |
-| 17 Aug | Follower checkpoint | Organic | If followers < 40, IG is the wrong lever — shift to free-channel outreach |
-| 17–21 Aug | Budgeted window for one store rejection | Risk | One rejection = 3–4 days, budgeted. A second eats the Sep buffer |
-| **18 Aug** | Six creative variants ready (4:5 + 9:16) | Paid | No faces |
-| **24 Aug** | Paid campaign launches | Paid | App-install objective, broad, 25–45, fitness interests. Slip = installs lost 1:1 |
-| weekly from 24 Aug | Review variants; cut any > $7 CPI, shift budget to survivor | Paid | |
-| **14 Sep** | Paid 60 + free 40 working deadline | All | |
-| **30 Sep** | 100 canary users (buffer absorbs one underdelivering channel) | All | |
+| ASAP | Ad account approved | Meta review (days) | **Escalate if held past 5 Aug.** Submitting today is the only lever. |
+| Early wk 2 | Attribution end-to-end test PASSES | A build with SDK existing | Meta SDK in build, events firing (incl. `first_run_complete`), SKAdNetwork, ATT prompt. Nothing ships to store until this passes — SDK must be in the submitted binary. **Escalate if failing after 14 Aug.** |
+| After attribution | Submit store build | Attribution pass + listing assets | Apple review, days |
+| Budgeted | One store rejection | — | 3–4 days, budgeted once. A second eats the Sep buffer. |
+
+## Launch and after
+
+| Date | Action | Note |
+| --- | --- | --- |
+| Follower checkpoint (rolling, hard read ~10 Aug) | Organic | Started early — if < 40, IG is wrong lever, shift to free channels |
+| **24 Aug — not-later-than** | Paid campaign launches | Pull earlier if ad approval + store-live + attribution all clear. Needs 21 days of spend for 60 at ceiling; earlier launch = more buffer |
+| weekly from launch | Review variants; cut any > $7 CPI, shift budget to survivor | |
+| **14 Sep** | Paid 60 + free 40 working deadline | |
+| **30 Sep** | 100 canary users (buffer absorbs one underdelivering channel) | |
 
 ## Escalate immediately (not at the weekly) if
 
