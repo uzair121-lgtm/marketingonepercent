@@ -18,5 +18,22 @@
 
 9 posts is the floor to clear before launch, not the cap — starting early, aim higher.
 
+## Weekly follower targets
+Target = on track; floor = stall line, below which IG is the wrong lever and effort shifts to free channels. Actuals in `tracking/ig-followers.csv`.
+
+| Week ending | Target | Floor |
+| --- | --- | --- |
+| 2 Aug | 15 | 8 |
+| 9 Aug | 40 | 22 |
+| **16 Aug (decision week)** | 70 | **40** |
+| 23 Aug (pre-launch) | 100 | 55 |
+| 30 Aug | 150 | 90 |
+| 6 Sep | 210 | 130 |
+| 13 Sep | 270 | 170 |
+| 20 Sep | 330 | 210 |
+| 27 Sep | 380 | 250 |
+
+**16 Aug floor 40 is the real bar** — it's the brief's stall line. Pre-launch is pure organic on a no-faces account (slow); post-launch numbers are directional and secondary to installs.
+
 ## Checkpoint — rolling, hard read ~10 Aug
 Softest number in the plan is 100 followers in 3 weeks. With posting pulled ~8 days early the read comes sooner: if followers **< 40 by ~10 Aug**, IG is the wrong lever — shift effort to free-channel outreach. Don't wait for a fixed date; flag the moment the trend is clear.
