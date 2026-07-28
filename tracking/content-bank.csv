@@ -1,4 +1,8 @@
 id,pillar,format,hook,concept,cta,status
+T1,mission,reel-text,"You don't need a new you. You need 1% today.","Teaser 1 - mission manifesto (see plan/scripts/teasers-1-4.md)",Follow the build,post-first
+T2,product-in-motion,reel-screenrec,"The whole app is one question.","Teaser 2 - what the app helps you do",Link in bio,post-second
+T3,accountability,carousel,"Willpower fails. Your circle doesn't.","Teaser 3 - accountability circle explainer",Save + link in bio,post-third
+T4,early-access,reel-text,"We're letting in the first 100.","Teaser 4 - canary early access",Comment 1% / link in bio,post-fourth
 1,product-in-motion,reel-screenrec,"Doing this 1% thing for 30 days did this ->","Screen recording: streak counter climbing + progress line bending upward, fast cut",Follow for the 30-day build,idea
 2,education,carousel,"1% better daily = 37x in a year. Here's the math.","6-slide carousel: the compounding curve, one number per slide",Save this,idea
 3,product-in-motion,reel-screenrec,"You don't need discipline. You need this.","Screen recording of the core loop / the daily 1% confirmation moment",Try it - link in bio,idea
