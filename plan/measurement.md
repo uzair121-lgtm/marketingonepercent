@@ -3,10 +3,10 @@
 **Target: 100% of installs attributable to an ad set.**
 
 ## Activation event — CONFIRM WITH FOUNDER BEFORE REPORTING
-A canary user = install **+ completed first-run setup**. The exact event that marks "first-run setup complete" must be confirmed with the founder and named here before any canary count is reported.
+A canary user = install **+ completed first-run setup**, marked by the event **`first_run_complete`** (founder-confirmed 2026-07-27). All canary counts report against this event.
 
-- Proposed event name: `first_run_complete` *(placeholder — awaiting founder confirmation)*
-- Confirmed: ☐  Date: ____  Event: ____________
+- Event name: `first_run_complete`
+- Confirmed: ☑  Date: 2026-07-27  Event: `first_run_complete` (founder-confirmed)
 
 ## End-to-end test — must PASS by 14 Aug
 Nothing ships to the store until this passes; the SDK must be in the submitted binary.
