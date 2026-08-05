@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Calorie Tracker</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --panel: #171a21;
+    --panel-2: #1e222b;
+    --border: #2a2f3a;
+    --text: #e6e8ec;
+    --muted: #9aa2af;
+    --accent: #4ade80;
+    --accent-dim: #22c55e;
+    --danger: #f87171;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f5f6f8;
+      --panel: #ffffff;
+      --panel-2: #f0f2f5;
+      --border: #dde1e7;
+      --text: #1a1d23;
+      --muted: #616a78;
+      --accent: #16a34a;
+      --accent-dim: #15803d;
+      --danger: #dc2626;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+  }
+  header h1 {
+    font-size: 1.6rem;
+    margin: 0 0 4px;
+    letter-spacing: -0.01em;
+  }
+  header p {
+    margin: 0 0 24px;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  form {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+  .field { display: flex; flex-direction: column; gap: 6px; flex: 1 1 140px; }
+  label { font-size: 0.8rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+  input {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-size: 1rem;
+    width: 100%;
+  }
+  input:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
+  button {
+    background: var(--accent);
+    color: #06210f;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 22px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    flex: 0 0 auto;
+  }
+  button:hover { background: var(--accent-dim); }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+  .stat { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 16px; text-align: center; }
+  .stat .num { font-size: 1.5rem; font-weight: 700; }
+  .stat .lbl { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; margin-top: 2px; }
+  h2 { font-size: 1.05rem; margin: 0 0 14px; }
+  #chart { width: 100%; height: 260px; display: block; }
+  .empty { color: var(--muted); text-align: center; padding: 30px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+  th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  td.cal { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .del { background: none; color: var(--danger); border: none; padding: 4px 8px; cursor: pointer; font-size: 0.85rem; font-weight: 600; }
+  .del:hover { text-decoration: underline; background: none; }
+  .row-actions { text-align: right; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🔥 Calorie Tracker</h1>
+    <p>Log one number per day. Watch the trend.</p>
+  </header>
+
+  <div class="card">
+    <form id="entry-form">
+      <div class="field">
+        <label for="date">Date</label>
+        <input type="date" id="date" required />
+      </div>
+      <div class="field">
+        <label for="calories">Calories</label>
+        <input type="number" id="calories" min="0" max="20000" step="1" placeholder="e.g. 2100" required />
+      </div>
+      <button type="submit">Save</button>
+    </form>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="num" id="stat-today">–</div><div class="lbl">Today</div></div>
+    <div class="stat"><div class="num" id="stat-avg">–</div><div class="lbl">7-day avg</div></div>
+    <div class="stat"><div class="num" id="stat-days">0</div><div class="lbl">Days logged</div></div>
+  </div>
+
+  <div class="card">
+    <h2>Trend</h2>
+    <canvas id="chart" width="680" height="260"></canvas>
+    <div class="empty" id="chart-empty">No data yet — log your first day above.</div>
+  </div>
+
+  <div class="card">
+    <h2>History</h2>
+    <div id="history-wrap">
+      <table id="history">
+        <thead><tr><th>Date</th><th>Calories</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="empty" id="history-empty">Nothing logged yet.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var STORAGE_KEY = "calorie-tracker.v1";
+
+  /** @returns {Object<string, number>} map of ISO date -> calories */
+  function load() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      return {};
+    }
+  }
+  function save(data) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
+
+  function todayISO() {
+    var d = new Date();
+    var off = d.getTimezoneOffset();
+    return new Date(d.getTime() - off * 60000).toISOString().slice(0, 10);
+  }
+
+  // Return entries sorted ascending by date: [{date, calories}]
+  function sortedEntries(data) {
+    return Object.keys(data)
+      .sort()
+      .map(function (k) { return { date: k, calories: data[k] }; });
+  }
+
+  function fmtDate(iso) {
+    var parts = iso.split("-");
+    var d = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+    return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  }
+
+  // ---- Rendering ----
+  var els = {
+    form: document.getElementById("entry-form"),
+    date: document.getElementById("date"),
+    calories: document.getElementById("calories"),
+    statToday: document.getElementById("stat-today"),
+    statAvg: document.getElementById("stat-avg"),
+    statDays: document.getElementById("stat-days"),
+    chart: document.getElementById("chart"),
+    chartEmpty: document.getElementById("chart-empty"),
+    history: document.getElementById("history").querySelector("tbody"),
+    historyEmpty: document.getElementById("history-empty"),
+    historyTable: document.getElementById("history"),
+  };
+
+  function renderStats(entries, data) {
+    var today = data[todayISO()];
+    els.statToday.textContent = today != null ? today.toLocaleString() : "–";
+
+    var last7 = entries.slice(-7);
+    if (last7.length) {
+      var sum = last7.reduce(function (a, e) { return a + e.calories; }, 0);
+      els.statAvg.textContent = Math.round(sum / last7.length).toLocaleString();
+    } else {
+      els.statAvg.textContent = "–";
+    }
+    els.statDays.textContent = entries.length;
+  }
+
+  function renderHistory(entries, data) {
+    var tbody = els.history;
+    tbody.innerHTML = "";
+    if (!entries.length) {
+      els.historyTable.style.display = "none";
+      els.historyEmpty.style.display = "block";
+      return;
+    }
+    els.historyTable.style.display = "table";
+    els.historyEmpty.style.display = "none";
+
+    // Newest first
+    entries.slice().reverse().forEach(function (e) {
+      var tr = document.createElement("tr");
+      var td1 = document.createElement("td");
+      td1.textContent = fmtDate(e.date);
+      var td2 = document.createElement("td");
+      td2.className = "cal";
+      td2.textContent = e.calories.toLocaleString();
+      var td3 = document.createElement("td");
+      td3.className = "row-actions";
+      var btn = document.createElement("button");
+      btn.className = "del";
+      btn.textContent = "Delete";
+      btn.addEventListener("click", function () {
+        delete data[e.date];
+        save(data);
+        renderAll(data);
+      });
+      td3.appendChild(btn);
+      tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3);
+      tbody.appendChild(tr);
+    });
+  }
+
+  function drawChart(entries) {
+    var canvas = els.chart;
+    if (!entries.length) {
+      canvas.style.display = "none";
+      els.chartEmpty.style.display = "block";
+      return;
+    }
+    canvas.style.display = "block";
+    els.chartEmpty.style.display = "none";
+
+    // Handle high-DPI displays
+    var dpr = window.devicePixelRatio || 1;
+    var cssW = canvas.clientWidth || 680;
+    var cssH = 260;
+    canvas.width = cssW * dpr;
+    canvas.height = cssH * dpr;
+    var ctx = canvas.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, cssW, cssH);
+
+    var padL = 44, padR = 14, padT = 16, padB = 30;
+    var plotW = cssW - padL - padR;
+    var plotH = cssH - padT - padB;
+
+    var vals = entries.map(function (e) { return e.calories; });
+    var maxV = Math.max.apply(null, vals);
+    var minV = Math.min.apply(null, vals);
+    // Pad the range a little and floor at 0
+    var range = maxV - minV || 1;
+    var top = maxV + range * 0.15;
+    var bottom = Math.max(0, minV - range * 0.15);
+    if (top === bottom) { top = bottom + 1; }
+
+    var styles = getComputedStyle(document.documentElement);
+    var accent = styles.getPropertyValue("--accent").trim() || "#4ade80";
+    var border = styles.getPropertyValue("--border").trim() || "#2a2f3a";
+    var muted = styles.getPropertyValue("--muted").trim() || "#9aa2af";
+
+    function x(i) {
+      if (entries.length === 1) return padL + plotW / 2;
+      return padL + (i / (entries.length - 1)) * plotW;
+    }
+    function y(v) {
+      return padT + (1 - (v - bottom) / (top - bottom)) * plotH;
+    }
+
+    // Gridlines + y labels
+    ctx.strokeStyle = border;
+    ctx.fillStyle = muted;
+    ctx.lineWidth = 1;
+    ctx.font = "11px -apple-system, system-ui, sans-serif";
+    ctx.textBaseline = "middle";
+    var ticks = 4;
+    for (var t = 0; t <= ticks; t++) {
+      var v = bottom + (top - bottom) * (t / ticks);
+      var yy = y(v);
+      ctx.beginPath();
+      ctx.moveTo(padL, yy);
+      ctx.lineTo(cssW - padR, yy);
+      ctx.stroke();
+      ctx.textAlign = "right";
+      ctx.fillText(Math.round(v).toLocaleString(), padL - 8, yy);
+    }
+
+    // Area fill
+    ctx.beginPath();
+    ctx.moveTo(x(0), y(vals[0]));
+    for (var i = 1; i < vals.length; i++) ctx.lineTo(x(i), y(vals[i]));
+    ctx.lineTo(x(vals.length - 1), padT + plotH);
+    ctx.lineTo(x(0), padT + plotH);
+    ctx.closePath();
+    ctx.globalAlpha = 0.12;
+    ctx.fillStyle = accent;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+
+    // Line
+    ctx.beginPath();
+    ctx.moveTo(x(0), y(vals[0]));
+    for (var j = 1; j < vals.length; j++) ctx.lineTo(x(j), y(vals[j]));
+    ctx.strokeStyle = accent;
+    ctx.lineWidth = 2.5;
+    ctx.lineJoin = "round";
+    ctx.stroke();
+
+    // Points + x labels (thin them out if many)
+    var labelEvery = Math.ceil(entries.length / 8);
+    ctx.fillStyle = accent;
+    for (var k = 0; k < entries.length; k++) {
+      ctx.beginPath();
+      ctx.arc(x(k), y(vals[k]), 3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.fillStyle = muted;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+    for (var m = 0; m < entries.length; m++) {
+      if (m % labelEvery === 0 || m === entries.length - 1) {
+        ctx.fillText(fmtDate(entries[m].date), x(m), padT + plotH + 8);
+      }
+    }
+  }
+
+  function renderAll(data) {
+    var entries = sortedEntries(data);
+    renderStats(entries, data);
+    renderHistory(entries, data);
+    drawChart(entries);
+  }
+
+  els.form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var date = els.date.value;
+    var cal = parseInt(els.calories.value, 10);
+    if (!date || isNaN(cal) || cal < 0) return;
+    var data = load();
+    data[date] = cal; // one value per day; re-logging overwrites
+    save(data);
+    els.calories.value = "";
+    renderAll(data);
+  });
+
+  window.addEventListener("resize", function () {
+    drawChart(sortedEntries(load()));
+  });
+
+  // Init
+  els.date.value = todayISO();
+  renderAll(load());
+})();
+</script>
+</body>
+</html>
