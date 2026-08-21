@@ -38,7 +38,7 @@ technical output, is Claude taking a shortcut it shouldn't take.
 2. Copy and paste this, then hit enter:
 
 ```bash
-cd ~/dev/one-percent
+cd ~/Developer/habits_app
 ```
 
 3. Copy and paste this, then hit enter:
@@ -195,7 +195,7 @@ Claude's job to just do.
 
 ## The short version
 
-1. `cd ~/dev/one-percent` → `claude` — same way, every time. One topic, one
+1. `cd ~/Developer/habits_app` → `claude` — same way, every time. One topic, one
    chat.
 2. Paste the big instruction block once per new chat.
 3. Talk in plain English about what you want.
