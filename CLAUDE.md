@@ -1,15 +1,14 @@
 # Read this first
 
-**`docs/working-with-claude.md` is the source of truth for how work happens in
-this repo.** Read it in full before responding to anything. Follow it exactly,
-step by step, every session. It is not a summary or a guideline — it is the
-agreement.
+The working agreement below is the source of truth for how work happens in this
+repo. Follow it exactly, step by step, every session. It is not a summary or a
+guideline — it is the agreement.
 
-Nothing in this file overrides it. Where anything appears to conflict, the doc
-wins.
+@docs/working-with-claude.md
 
-Do not restate, condense, or reinterpret it here. If the process needs to
-change, the doc changes.
+Nothing else in this file overrides it. Where anything appears to conflict, the
+agreement wins. Do not restate, condense, or reinterpret it — if the process
+needs to change, `docs/working-with-claude.md` changes.
 
 ---
 
@@ -24,7 +23,6 @@ codebase and is not in this repository.
 - `tracking/` — CSVs for leads, IG posts and followers, canary users, paid
   variants
 - `reports/` — weekly reports and the template
-- `docs/working-with-claude.md` — the working agreement above
 
 Working with Mohamed Uzair (co-founder, non-technical by explicit agreement).
-The doc explains what that requires. Read it.
+The agreement above explains what that requires.
